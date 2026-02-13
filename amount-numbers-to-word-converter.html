@@ -1,0 +1,713 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amount/Number to Words Converter - Pakistani System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 800px;
+            padding: 40px;
+            margin: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .input-with-button {
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
+        }
+
+        button {
+            padding: 15px 25px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .output-section {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid #6a11cb;
+        }
+
+        .output-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        #output {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            line-height: 1.6;
+            min-height: 60px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .buttons-section {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .read-button {
+            background: linear-gradient(to right, #00b09b, #96c93d);
+        }
+
+        .copy-button {
+            background: linear-gradient(to right, #ff8a00, #da1b60);
+        }
+
+        .reset-button {
+            background: linear-gradient(to right, #8e2de2, #4a00e0);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 5px solid #00b09b;
+        }
+
+        .info-box h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .info-box ul {
+            list-style-type: none;
+            padding-left: 10px;
+        }
+
+        .info-box li {
+            padding: 5px 0;
+            color: #555;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .info-box li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00b09b;
+            font-weight: bold;
+        }
+
+        .examples-section {
+            margin-top: 40px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+        }
+
+        .examples-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .example-item {
+            background-color: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2575fc;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .example-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .example-number {
+            font-weight: 600;
+            color: #6a11cb;
+        }
+
+        .example-words {
+            color: #2c3e50;
+            margin-top: 5px;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .input-with-button {
+                flex-direction: column;
+            }
+
+            .buttons-section {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .notification.error {
+            background-color: #f44336;
+        }
+
+        .system-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            background: #fff3cd;
+            border-radius: 8px;
+            border: 1px solid #ffeaa7;
+        }
+
+        .system-info i {
+            color: #f39c12;
+        }
+
+        .system-info span {
+            color: #d35400;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-calculator"></i> Number to Words Converter</h1>
+            <p>Convert any numeric amount into words using Indian numbering system (Lakhs, Crores)</p>
+            <div class="system-info">
+                <i class="fas fa-info-circle"></i>
+                <div>Using <span>Pakistani numbering system/Indian Numbering System</span> (Lakhs, Crores) instead of International System</div>
+            </div>
+        </div>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label for="amount"><i class="fas fa-keyboard"></i> Enter your Amount in numbers without comma:</label>
+                <div class="input-with-button">
+                    <input type="text" id="amount" placeholder="e.g., 101214" autocomplete="off">
+                    <button id="convertBtn">
+                        <i class="fas fa-exchange-alt"></i> Convert to Words
+                    </button>
+                </div>
+                <p style="color: #7f8c8d; font-size: 0.9rem; margin-top: 5px;">Enter numbers only (e.g., 101214,
+                    2500000, 10000000)</p>
+            </div>
+        </div>
+
+        <div class="output-section">
+            <div class="output-label"><i class="fas fa-file-alt"></i> Amount in Words:</div>
+            <div id="output">Your converted amount will appear here...</div>
+        </div>
+
+        <div class="buttons-section">
+            <button id="readBtn" class="read-button">
+                <i class="fas fa-volume-up"></i> Read Output
+            </button>
+            <button id="copyBtn" class="copy-button">
+                <i class="far fa-copy"></i> Copy to Clipboard
+            </button>
+            <button id="resetBtn" class="reset-button">
+                <i class="fas fa-redo"></i> Reset Converter
+            </button>
+        </div>
+
+        <div class="info-box">
+            <h3><i class="fas fa-lightbulb"></i> Pakistani numbering system/Indian Numbering System</h3>
+            <ul>
+                <li>1 Lakh = 100,000 (One Hundred Thousand)</li>
+                <li>1 Crore = 10,000,000 (Ten Million)</li>
+                <li>100 Crores = 1 Arab = 1,000,000,000 (One Billion)</li>
+                <li>100 Arabs = 1 Kharab = 100,000,000,000 (One Hundred Billion)</li>
+            </ul>
+        </div>
+
+        <div class="examples-section">
+            <h3><i class="fas fa-lightbulb"></i> Examples (Click to try):</h3>
+            <div class="examples-grid">
+                <div class="example-item" data-amount="10">
+                    <div class="example-number">10</div>
+                    <div class="example-words">Ten</div>
+                </div>
+                <div class="example-item" data-amount="100">
+                    <div class="example-number">100</div>
+                    <div class="example-words">One Hundred</div>
+                </div>
+                <div class="example-item" data-amount="1000">
+                    <div class="example-number">1,000</div>
+                    <div class="example-words">One Thousand</div>
+                </div>
+                <div class="example-item" data-amount="10000">
+                    <div class="example-number">10,000</div>
+                    <div class="example-words">Ten Thousand</div>
+                </div>
+                <div class="example-item" data-amount="100000">
+                    <div class="example-number">1,00,000</div>
+                    <div class="example-words">One Lakh</div>
+                </div>
+                <div class="example-item" data-amount="101214">
+                    <div class="example-number">1,01,214</div>
+                    <div class="example-words">One Lakh One Thousand Two Hundred Fourteen</div>
+                </div>
+                <div class="example-item" data-amount="1000000">
+                    <div class="example-number">10,00,000</div>
+                    <div class="example-words">Ten Lakh</div>
+                </div>
+                <div class="example-item" data-amount="10000000">
+                    <div class="example-number">1,00,00,000</div>
+                    <div class="example-words">One Crore</div>
+                </div>
+                <div class="example-item" data-amount="12345678">
+                    <div class="example-number">1,23,45,678</div>
+                    <div class="example-words">One Crore Twenty Three Lakh Forty Five Thousand Six Hundred Seventy Eight
+                    </div>
+                </div>
+                <div class="example-item" data-amount="100000000">
+                    <div class="example-number">10,00,00,000</div>
+                    <div class="example-words">Ten Crore</div>
+                </div>
+                <div class="example-item" data-amount="1000000000">
+                    <div class="example-number">100,00,00,000</div>
+                    <div class="example-words">One Hundred Crore (One Arab)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Number to Words Converter Project | Developed by <a href="https://ouchh.com">Ouchh.com Studio</a> / <a href="https://www.linkedin.com/in/rashidrupani">Rashid Rupani</a></p>        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script type="b0bc55014e2814f87083ed71-text/javascript">
+        // Indian Numbering System conversion logic
+        const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+        const teens = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+        const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+        
+        // Indian number groups
+        const indianGroups = ['', 'Thousand', 'Lakh', 'Crore', 'Arab', 'Kharab', 'Nil', 'Padma', 'Shankh'];
+
+        // Convert a three-digit number to words
+        function convertThreeDigit(num) {
+            let result = '';
+            
+            // Handle hundreds place
+            if (num >= 100) {
+                result += ones[Math.floor(num / 100)] + ' Hundred ';
+                num %= 100;
+            }
+            
+            // Handle tens and ones place
+            if (num >= 20) {
+                result += tens[Math.floor(num / 10)] + ' ';
+                num %= 10;
+            } else if (num >= 10) {
+                result += teens[num - 10] + ' ';
+                return result.trim();
+            }
+            
+            // Handle ones place
+            if (num > 0) {
+                result += ones[num] + ' ';
+            }
+            
+            return result.trim();
+        }
+
+        // Convert number to words using Indian numbering system
+        function convertNumberToWordsIndian(num) {
+            if (num === 0) return 'Zero';
+            if (num === 1) return 'One';
+            
+            let result = '';
+            let groupIndex = 0;
+            
+            // Process the number in groups of two digits (except the first group which is three digits)
+            while (num > 0) {
+                // Get the current group (last 2 digits, except first group is 3 digits)
+                let group;
+                if (groupIndex === 0) {
+                    // First group: last 3 digits
+                    group = num % 1000;
+                    num = Math.floor(num / 1000);
+                } else {
+                    // Subsequent groups: last 2 digits
+                    group = num % 100;
+                    num = Math.floor(num / 100);
+                }
+                
+                // Convert this group to words
+                if (group > 0) {
+                    let groupWords = convertThreeDigit(group);
+                    if (groupWords) {
+                        result = groupWords + (indianGroups[groupIndex] ? ' ' + indianGroups[groupIndex] + ' ' : '') + result;
+                    }
+                }
+                
+                groupIndex++;
+                
+                // Safety break for very large numbers
+                if (groupIndex >= indianGroups.length) break;
+            }
+            
+            return result.trim().replace(/\s+/g, ' ');
+        }
+
+        // Format number with Indian comma placement
+        function formatNumberIndian(numStr) {
+            // Remove any existing commas
+            numStr = numStr.replace(/,/g, '');
+            
+            // Indian numbering: commas after 3 digits, then after every 2 digits
+            let result = '';
+            let length = numStr.length;
+            
+            if (length <= 3) {
+                return numStr;
+            }
+            
+            // Last 3 digits
+            result = numStr.substr(length - 3);
+            
+            // Remaining digits
+            let remaining = numStr.substr(0, length - 3);
+            
+            // Add commas after every 2 digits from right
+            while (remaining.length > 0) {
+                let chunk = remaining.substr(Math.max(remaining.length - 2, 0));
+                result = chunk + (result ? ',' + result : '');
+                remaining = remaining.substr(0, Math.max(remaining.length - 2, 0));
+            }
+            
+            return result;
+        }
+
+        // DOM elements
+        const amountInput = document.getElementById('amount');
+        const convertBtn = document.getElementById('convertBtn');
+        const readBtn = document.getElementById('readBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const outputDiv = document.getElementById('output');
+        const notification = document.getElementById('notification');
+        const exampleItems = document.querySelectorAll('.example-item');
+
+        // Show notification
+        function showNotification(message, isError = false) {
+            notification.textContent = message;
+            notification.className = 'notification';
+            
+            if (isError) {
+                notification.classList.add('error');
+            }
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Convert button click handler
+        convertBtn.addEventListener('click', () => {
+            const amount = amountInput.value.trim();
+            
+            // Validate input
+            if (!amount) {
+                showNotification('Please enter an amount', true);
+                amountInput.focus();
+                return;
+            }
+            
+            if (!/^\d+$/.test(amount)) {
+                showNotification('Please enter numbers only (no commas, letters, or special characters)', true);
+                amountInput.focus();
+                return;
+            }
+            
+            // Check if number is too large
+            if (amount.length > 15) {
+                showNotification('Number is too large. Please enter a number with up to 15 digits.', true);
+                amountInput.focus();
+                return;
+            }
+            
+            const num = parseInt(amount, 10);
+            
+            // Handle zero separately
+            if (num === 0) {
+                const formattedNumber = formatNumberIndian(amount);
+                outputDiv.innerHTML = `
+                    <div style="margin-bottom: 10px;">
+                        <strong>Number:</strong> ${formattedNumber}
+                    </div>
+                    <div style="color: #6a11cb; font-weight: 600;">
+                        <strong>In Words:</strong> Zero
+                    </div>
+                `;
+                showNotification('Number converted successfully!');
+                return;
+            }
+            
+            const words = convertNumberToWordsIndian(num);
+            
+            // Format the number with Indian commas
+            const formattedNumber = formatNumberIndian(amount);
+            
+            // Display result
+            outputDiv.innerHTML = `
+                <div style="margin-bottom: 10px;">
+                    <strong>Number:</strong> ${formattedNumber}
+                </div>
+                <div style="color: #6a11cb; font-weight: 600;">
+                    <strong>In Words:</strong> ${words}
+                </div>
+            `;
+            
+            showNotification('Number converted successfully!');
+        });
+
+        // Read button click handler
+        readBtn.addEventListener('click', () => {
+            const outputText = outputDiv.textContent;
+            
+            if (!outputText || outputText.includes('Your converted amount will appear here')) {
+                showNotification('Please convert a number first', true);
+                return;
+            }
+            
+            // Extract just the words part (after "In Words:")
+            const wordsPart = outputText.split('In Words:')[1] || outputText;
+            
+            // Use Web Speech API
+            if ('speechSynthesis' in window) {
+                const speech = new SpeechSynthesisUtterance();
+                speech.text = wordsPart.trim();
+                speech.rate = 0.9;
+                speech.pitch = 1;
+                speech.volume = 1;
+                speech.lang = 'en-IN'; // Indian English
+                
+                // Try to find a female voice
+                const voices = speechSynthesis.getVoices();
+                const indianVoice = voices.find(voice => 
+                    voice.lang === 'en-IN' || 
+                    voice.name.includes('India') || 
+                    voice.name.includes('Indian')
+                );
+                
+                if (indianVoice) {
+                    speech.voice = indianVoice;
+                } else if (voices.length > 0) {
+                    speech.voice = voices[0];
+                }
+                
+                speechSynthesis.speak(speech);
+                showNotification('Reading amount in words...');
+            } else {
+                showNotification('Text-to-speech is not supported in your browser', true);
+            }
+        });
+
+        // Copy button click handler
+        copyBtn.addEventListener('click', () => {
+            const outputText = outputDiv.textContent;
+            
+            if (!outputText || outputText.includes('Your converted amount will appear here')) {
+                showNotification('Please convert a number first', true);
+                return;
+            }
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(outputText)
+                .then(() => {
+                    showNotification('Copied to clipboard!');
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                    showNotification('Failed to copy to clipboard', true);
+                });
+        });
+
+        // Reset button click handler
+        resetBtn.addEventListener('click', () => {
+            amountInput.value = '';
+            outputDiv.textContent = 'Your converted amount will appear here...';
+            amountInput.focus();
+            showNotification('Converter has been reset');
+        });
+
+        // Example items click handler
+        exampleItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const amount = item.getAttribute('data-amount');
+                amountInput.value = amount;
+                
+                // Trigger conversion
+                convertBtn.click();
+            });
+        });
+
+        // Allow Enter key to trigger conversion
+        amountInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                convertBtn.click();
+            }
+        });
+
+        // Initialize with an example
+        window.addEventListener('load', () => {
+            amountInput.value = '101214';
+            setTimeout(() => {
+                convertBtn.click();
+            }, 500);
+        });
+    </script>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="b0bc55014e2814f87083ed71-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"2b6d371ca209469faa258b977e2d7882","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+
+</html>
