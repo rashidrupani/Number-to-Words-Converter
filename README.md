@@ -7,6 +7,10 @@ A beautiful, user-friendly web application that converts numerical amounts into 
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
 
+## 🚀 Demo
+
+Simply Click hereL [Amount in numbers to Word Converter with Voice Output](https:/https://rashidrupani.github.io/Number-to-Words-Converter/amount-numbers-to-word-converter.html) 
+
 ## ✨ Features
 
 - **Pakistani/Indian Number System**: Supports conversion using Lakh, Crore, Arab, and Kharab denomination
@@ -21,9 +25,6 @@ A beautiful, user-friendly web application that converts numerical amounts into 
 - **Input Validation**: Comprehensive error handling and user guidance
 - **Keyboard Support**: Press Enter to convert instantly
 
-## 🚀 Demo
-
-Simply open the `amount-numbers-to-word-converter.html` file in any modern web browser to start using the converter.
 
 ## 📦 Installation
 
