@@ -9,7 +9,7 @@ A beautiful, user-friendly web application that converts numerical amounts into 
 
 ## 🚀 Demo
 
-Simply Click here: [Amount in numbers to Word Converter with Voice Output](https://rashidrupani.github.io/Number-to-Words-Converter/amount-numbers-to-word-converter.html) 
+Simply Click here: [Amount in numbers to Word Converter with Voice Output](https://numbertowords.ouchh.com/)
 
 ## ✨ Features
 
